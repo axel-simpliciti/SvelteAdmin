@@ -40,9 +40,7 @@ export class DashboardDefinition {
 	/** */ public readonly topLeftMenu: Array<MenuLink> = [];
 	/** */ public readonly topRightMenu: Array<MenuLink> = [];
 	/** */ public readonly localeDictionaries: Dictionaries = {};
-	/** */ public readonly stores: Writable<{[key: string]: unknown}> = writable({
-		sideMenu: Array<MenuLink>
-	});
+	/** */ public readonly stores: Writable<{[key: string]: unknown}>;
 	public readonly options = {};
 
 	/** */
@@ -53,7 +51,7 @@ export class DashboardDefinition {
 		this.topLeftMenu = options.topLeftMenu || [];
 		this.topRightMenu = options.topRightMenu || [];
 		this.localeDictionaries = options.localeDictionaries || {};
-		this.stores.set({
+		this.stores = writable({
 			sideMenu: options.sideMenu || []
 		})
 		this.cruds.forEach((crud: CrudDefinition<unknown>) => (crud.dashboard = this));
