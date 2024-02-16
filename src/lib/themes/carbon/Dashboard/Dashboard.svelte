@@ -41,12 +41,20 @@
 		currentCrudOperation?.dashboard.adminConfig.theme.crudActions[
 			currentCrudOperation?.displayComponentName
 		];
+
+	let value;
+	dashboard.stores.subscribe((val) => {
+		value = val.sideMenu
+	})
+
+
+
 </script>
 
 <AdminLayout
 	adminConfig={dashboard.adminConfig}
 	translations={dashboard.localeDictionaries}
-	side_menu_links={dashboard.sideMenu}
+	side_menu_links={value}
 	top_left_menu_links={dashboard.topLeftMenu}
 	top_right_menu_links={dashboard.topRightMenu}
 >

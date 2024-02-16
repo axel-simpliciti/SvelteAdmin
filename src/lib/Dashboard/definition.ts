@@ -2,6 +2,7 @@ import type { MenuLink } from '$lib/Menu/MenuLinks';
 import type { Dictionaries } from '$lib/admin_i18n';
 import type { CrudDefinition } from '$lib/Crud/definition';
 import { type AdminConfig, emptyAdminConfig } from '$lib/config/adminConfig';
+import { writable, type Writable } from 'svelte/store';
 
 /**
  */
@@ -39,7 +40,7 @@ export class DashboardDefinition {
 	/** */ public readonly topLeftMenu: Array<MenuLink> = [];
 	/** */ public readonly topRightMenu: Array<MenuLink> = [];
 	/** */ public readonly localeDictionaries: Dictionaries = {};
-
+	/** */ public readonly stores: Writable<{[key: string]: unknown}>;
 	public readonly options = {};
 
 	/** */
@@ -50,6 +51,9 @@ export class DashboardDefinition {
 		this.topLeftMenu = options.topLeftMenu || [];
 		this.topRightMenu = options.topRightMenu || [];
 		this.localeDictionaries = options.localeDictionaries || {};
+		this.stores = writable({
+			sideMenu: options.sideMenu || []
+		})
 		this.cruds.forEach((crud: CrudDefinition<unknown>) => (crud.dashboard = this));
 		this.checkUniqueCruds();
 	}
